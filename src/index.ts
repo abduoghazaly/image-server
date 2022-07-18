@@ -1,13 +1,13 @@
 import express from "express";
 import imageRoute from "./routes/imageRoutes";
 
-const app = express()
-const port = 3000
+const app = express();
+const port = 3000;
 
-app.use(imageRoute)
+app.use(imageRoute);
 
 app.listen(port, () => {
-  console.log(`server at port: ${port}`)
-})
+  console.log(`server at port: ${port}`);
+});
 
-export default app
+export default app;

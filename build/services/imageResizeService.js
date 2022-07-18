@@ -17,16 +17,19 @@ const path_1 = __importDefault(require("path"));
 const sharp_1 = __importDefault(require("sharp"));
 function imageResizer(queries) {
     return __awaiter(this, void 0, void 0, function* () {
-        const fileName = queries.image.split('.');
-        const width = queries.width ? Number.parseInt(queries.width, 0) : undefined;
-        const height = queries.height ? +queries.height : undefined;
-        return yield (0, sharp_1.default)(path_1.default.join('image', queries === null || queries === void 0 ? void 0 : queries.image))
+        const fileName = queries.image.split(".");
+        const width = queries.width
+            ? Number.parseInt(queries.width, 0)
+            : undefined;
+        const height = queries.height
+            ? +queries.height
+            : undefined;
+        return yield (0, sharp_1.default)(path_1.default.join("image", queries === null || queries === void 0 ? void 0 : queries.image))
             .resize({ width, height })
-            .toFile(path_1.default.join('output', `${fileName[0]}-w${queries.width}-h${queries.height}.${fileName[1]}`), (err) => {
-            if (err) {
-                console.log(err);
-            }
-        }).toBuffer();
+            .toFile(path_1.default.join("output", `${fileName[0]}-w${queries.width}-h${queries.height}.${fileName[1]}`), () => {
+            // error and info
+        })
+            .toBuffer();
     });
 }
 exports.imageResizer = imageResizer;

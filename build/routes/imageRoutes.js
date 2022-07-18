@@ -20,30 +20,32 @@ const imageRoute = express_1.default.Router();
 imageRoute.use((req, res, next) => {
     next();
 });
-imageRoute.get('/image', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+imageRoute.get("/image", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const queries = req.query;
     if (queries.image) {
-        if (fs_1.default.existsSync(path_1.default.join('image', queries === null || queries === void 0 ? void 0 : queries.image))) {
+        if (fs_1.default.existsSync(path_1.default.join("image", queries === null || queries === void 0 ? void 0 : queries.image))) {
             if (!queries.width && !queries.height) {
-                res.sendFile(path_1.default.resolve('image', queries === null || queries === void 0 ? void 0 : queries.image));
+                res.sendFile(path_1.default.resolve("image", queries === null || queries === void 0 ? void 0 : queries.image));
             }
             else {
-                const fileName = queries.image.split('.');
-                if (fs_1.default.existsSync(path_1.default.join('output', `${fileName[0]}-w${queries.width}-h${queries.height}.${fileName[1]}`))) {
-                    res.sendFile(path_1.default.resolve('output', `${fileName[0]}-w${queries.width}-h${queries.height}.${fileName[1]}`));
+                const fileName = queries.image.split(".");
+                if (fs_1.default.existsSync(path_1.default.join("output", `${fileName[0]}-w${queries.width}-h${queries.height}.${fileName[1]}`))) {
+                    res.sendFile(path_1.default.resolve("output", `${fileName[0]}-w${queries.width}-h${queries.height}.${fileName[1]}`));
                 }
                 else {
                     if (isNaN(queries.width) && queries.width) {
-                        res.send('width should be Number Only!');
+                        res.send("width should be Number Only!");
                     }
-                    else if (isNaN(queries.height) && queries.height) {
-                        res.send('height should be Number Only!');
+                    else if (isNaN(queries.height) &&
+                        queries.height) {
+                        res.send("height should be Number Only!");
                     }
                     else {
                         (0, imageResizeService_1.imageResizer)(queries)
                             .then((e) => {
                             res.type(fileName[1]).send(e);
-                        }).catch(err => {
+                        })
+                            .catch((err) => {
                             res.send(`there was a ERROR while resize the image : ${err}`);
                         });
                     }
@@ -51,11 +53,11 @@ imageRoute.get('/image', (req, res) => __awaiter(void 0, void 0, void 0, functio
             }
         }
         else {
-            res.send('file not exist!');
+            res.send("file not exist!");
         }
     }
     else {
-        res.send('please select image.');
+        res.send("please select image.");
     }
 }));
 exports.default = imageRoute;
