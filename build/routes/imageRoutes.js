@@ -21,7 +21,11 @@ imageRoute.use((req, res, next) => {
     next();
 });
 imageRoute.get("/image", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const queries = req.query;
+    const queries = {
+        image: req.query["image"],
+        height: req.query["height"],
+        width: req.query["width"],
+    };
     if (queries.image) {
         if (fs_1.default.existsSync(path_1.default.join("image", queries === null || queries === void 0 ? void 0 : queries.image))) {
             if (!queries.width && !queries.height) {

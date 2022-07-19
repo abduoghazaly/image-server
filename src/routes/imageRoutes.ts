@@ -1,6 +1,7 @@
 import express from "express";
 import fs from "fs";
 import path from "path";
+import ReqQuery from "../interface/reqquery.interface";
 import { imageResizer } from "../services/imageResizeService";
 
 const imageRoute = express.Router();
@@ -11,8 +12,12 @@ imageRoute.use((req, res, next) => {
 
 imageRoute.get(
   "/image",
-  async (req: express.Request, res: express.Response) => {
-    const queries = req.query;
+  async (req: express.Request, res: express.Response): Promise<void> => {
+    const queries: ReqQuery = {
+      image: req.query["image"],
+      height: req.query["height"],
+      width: req.query["width"],
+    };
     if (queries.image) {
       if (fs.existsSync(path.join("image", queries?.image as string))) {
         if (!queries.width && !queries.height) {

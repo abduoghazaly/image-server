@@ -1,7 +1,8 @@
 import path from "path";
 import sharp from "sharp";
+import ReqQuery from "../interface/reqquery.interface";
 
-export async function imageResizer(queries) {
+export async function imageResizer(queries: ReqQuery): Promise<Buffer> {
   const fileName = (queries.image as string).split(".");
   const width = queries.width
     ? Number.parseInt(queries.width as unknown as string, 0)
